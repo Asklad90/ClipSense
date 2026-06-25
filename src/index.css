@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Colors */
+  --color-basalt-canvas: var(--basalt-canvas);
+  --color-ash-white: var(--ash-white);
+  --color-abyssal-ink: var(--abyssal-ink);
+  --color-pure-white: var(--pure-white);
+  --color-digital-orange: #FF5C1A;
+  --color-cyber-violet: #7B61FF;
+  --color-pixel-glare: #f5f28e;
+
+  --color-primary: #FF5C1A;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #7B61FF;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #71717a;
+  --color-muted-foreground: #18181b;
+  --color-accent: #f5f28e;
+  --color-accent-foreground: #070607;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  /* Typography — Font Families */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Bebas Neue', 'PP Neue Corp Compact Ultrabold', ui-sans-serif, system-ui, sans-serif;
+
+  /* Border Radius */
+  --radius-cards: 40px;
+  --radius-inputs: 100px;
+  --radius-buttons: 800px;
+  --radius-default: 40px;
+}
+
+:root {
+  --basalt-canvas: #e2e2df;
+  --ash-white: #f7f6f2;
+  --abyssal-ink: #070607;
+  --pure-white: #ffffff;
+}
+
+.dark {
+  --basalt-canvas: #0a0a0a;             /* True deep black base */
+  --ash-white: rgba(255, 255, 255, 0.04); /* Glassmorphic base */
+  --abyssal-ink: #A0A0A0;                /* Beautiful cool gray body text */
+  --pure-white: #ffffff;
+}
+
+/* Glassmorphic panel helper */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-basalt-canvas);
+    color: var(--color-abyssal-ink);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    font-feature-settings: "ss06", "ss10";
+    color: var(--color-pure-white);
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark .font-display {
+    color: #ffffff;
+  }
+
+  /* Automatic premium glassmorphic upgrade for all standard cards in dark mode */
+  .dark .bg-ash-white {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+}

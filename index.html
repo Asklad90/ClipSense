@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipSense</title>
+    <script>
+      // Global boundary safeguarding against browser-extension/iframe errors
+      // (e.g. "Cannot redefine property: ethereum", "Failed to connect to MetaMask")
+      window.addEventListener('error', function(event) {
+        const msg = event.message ? String(event.message).toLowerCase() : '';
+        if (msg.includes('ethereum') || msg.includes('metamask') || msg.includes('redefine property') || msg.includes('rpc error') || msg.includes('wallet') || msg.includes('failed to connect')) {
+          console.warn('[System Sandboxed Safeguard] Swallowed extension error:', event.message);
+          if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+          if (event.preventDefault) event.preventDefault();
+          return true;
+        }
+      }, true);
+
+      window.addEventListener('unhandledrejection', function(event) {
+        const reasonStr = event.reason ? String(event.reason.message || event.reason).toLowerCase() : '';
+        if (reasonStr.includes('ethereum') || reasonStr.includes('metamask') || reasonStr.includes('redefine property') || reasonStr.includes('rpc error') || reasonStr.includes('wallet') || reasonStr.includes('failed to connect')) {
+          console.warn('[System Sandboxed Safeguard] Swallowed extension rejection:', event.reason);
+          if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+          if (event.preventDefault) event.preventDefault();
+          return true;
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
